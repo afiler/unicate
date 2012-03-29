@@ -1,35 +1,57 @@
-monospace = [
-  //[' ', chr(0x3000)],
-  [/[^ ]/g, 0xff00-0x20]
-]
+formats = {
+  fullwidth: [
+    //[' ', chr(0x3000)],
+    [/[^ ]/g, 0xff00-0x20]
+  ],
 
-italicize = [
-  [/[A-Z]/g, 0x1d434-0x41],
-  [/[a-z]/g, 0x1d44e-0x61]
-]
+  italicize: [
+    [/[A-Z]/g, 0x1d434-0x41],
+    [/[a-z]/g, 0x1d44e-0x61]
+  ],
 
-circle = [
-  [/[A-Z]/g, 0x24b6-0x41],
-  [/[a-z]/g, 0x24d0-0x61],
-  [/[1-9]/g, 0x2460-0x31],
-  [/0/g, 0x24ea-0x30]
-]
+  circle: [
+    [/[A-Z]/g, 0x24b6-0x41],
+    [/[a-z]/g, 0x24d0-0x61],
+    [/[1-9]/g, 0x2460-0x31],
+    [/0/g, 0x24ea-0x30]
+  ],
 
-freeze_spaces = [
-  [/\t/g, "    "],
-  [/ /g, chr(0x3000)]
-]
+  freeze_spaces: [
+    [/\t/g, "    "],
+    [/ /g, chr(0x3000)]
+  ],
+
+  bold: [0x1d400, 0x1d7ce],
+  italic: 0x1d434,
+  bold_italic: [0x1d468, 0x1d7ce],
+  sans_serif: [0x1d5a0, 0x1d7e2],
+  sans_serif_bold: [0x1d5d4, 0x1d7ec],
+  sans_serif_italic: 0x1d608,
+  sans_serif_bold_italic: [0x1d63c, 0x1d7ec],
+  monospace: [0x1d670, 0x1d7f6],
+  
+  script: 0x1d49c,
+  script_bold: 0x1d4d0,
+  fraktur: 0x1d504,
+  fraktur_bold: 0x1d56c,
+  double_struck: 0x1d538,
+}
 
 function $(v) {
   return document.getElementById(v)
 }
 
-function go(fn) {
+function go(ruleset_name) {
+  ruleset = formats[ruleset_name]
   text = $('in-text').value
-  if (typeof(fn) == 'function') {
-    text = fn(text)
+  if (typeof(ruleset) == 'function') {
+    text = ruleset(text)
+  } else if (typeof(ruleset) == 'number') {
+    text = mathFormat(ruleset, 0x30, text)
+  } else if (typeof(ruleset[0]) == 'number') {
+    text = mathFormat(ruleset[0], ruleset[1], text)
   } else {
-    text = format(fn, text)
+    text = format(ruleset, text)
   }
   $('out-text').value = text
 }
@@ -43,6 +65,14 @@ function format(rules, text) {
   })
 
   return text
+}
+
+function mathFormat(offset, digitOffset, text) {
+  return format([
+      [/[A-Z]/g, offset-0x41],
+      [/[a-z]/g, offset+26-0x61],
+      [/[1-9]/g, digitOffset-0x31]
+    ], text)
 }
 
 function shiftchar(c, i) { return chr(asc(c) + i) }

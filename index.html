@@ -6,32 +6,44 @@
     div.text { clear: both }
     div.box { background-color: #eef; padding: 5px; overflow: auto; min-width: 250px; margin: 5px; }
     div.box div.group { float: left; padding: 1px; display: block }
-    div.box p { margin: 0px }
+    div.box p { margin: 5px }
   </style>
 </head>
 <body>
-  <div class="text"><textarea cols="60" rows="16" id="in-text"></textarea></div>
-  <p>
-    <button onclick="go('monospace')">Monospace</button>
-    <button onclick="go('italicize')">Italicize</button>
-    <button onclick="go('circle')">Circle</button>
-    <button onclick="go('freeze_spaces')">Freeze Spaces</button>
-  </p>
+  <div class="text"><textarea cols="60" rows="8" id="in-text"></textarea></div>
   <div class="box">
-    <div><button onclick="format()">Format</button></div>
-    <div class="group">
-      <p><input type="radio" name="style" value="roman" checked>Roman</p>
-      <p><input type="radio" name="style" value="sansserif">Sans Serif</p>
-      <p><input type="radio" name="style" value="script">Script</p>
-      <p><input type="radio" name="style" value="fraktur">Fraktur</p>
-      <p><input type="radio" name="style" value="doublestruck">Double-Struck</p>
-      <p><input type="radio" name="style" value="monospace">Monospace</p>
-    </div>
-    <div class="group">
-      <p><input type="checkbox" name="bold">Bold</p>
-      <p><input type="checkbox" name="italic">Italic</p>
-    </div>
+    <p>Format</p>
+    <p>
+      <button onclick="go('monospace')">      Monospace             </button>
+      <button onclick="go('italic')">         Italic     </button>
+      <button onclick="go('bold')">           Bold          </button>
+      <button onclick="go('bold_italic')">           Bold Italic      </button>
+    </p>
+    <p>
+      <button onclick="go('sans_serif')">  Sans Serif            </button>
+      <button onclick="go('sans_serif_bold')">  Sans Serif Bold       </button>
+      <button onclick="go('sans_serif_bold_italic')">  Sans Serif Bold Italic</button>
+      <button onclick="go('sans_serif_italic')">  Sans Serif Italic     </button>
+    </p>
+    <p>Effects</p>
+    <p>
+      <button onclick="go('fullwidth')">      Fullwidth     </button>
+      <button onclick="go('circle')">         Circle        </button>
+    </p>
+    <p>Effects (incomplete)</p>
+    <p>
+      <button onclick="go('script')">  Script                </button>
+      <button onclick="go('script_bold')">  Script Bold           </button>
+      <button onclick="go('double_struck')">  Double-Struck         </button>
+      <button onclick="go('fraktur')">  Fraktur               </button>
+      <button onclick="go('fraktur_bold')">  Fraktur Bold          </button>
+    </p>
+    
+    <p>Tools</p>
+    <p>
+      <button onclick="go('freeze_spaces')">  Freeze Spaces </button>
+    </p>
   </div>
-  <div class="text"><textarea cols="60" rows="16" id="out-text"></textarea></div>
+  <div class="text"><textarea cols="60" rows="8" id="out-text"></textarea></div>
 </body>
 </html>
