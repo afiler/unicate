@@ -29,7 +29,12 @@ formats = {
   ],
 
   bold: [0x1d400, 0x1d7ce],
-  italic: 0x1d434,
+  //italic: 0x1d434,
+  italic: [
+    ['h', 0x210E],
+    [/[A-Z]/g, 0x1d434-0x41],
+    [/[a-z]/g, 0x1d434+26-0x61]
+  ],
   bold_italic: [0x1d468, 0x1d7ce],
   sans_serif: [0x1d5a0, 0x1d7e2],
   sans_serif_bold: [0x1d5d4, 0x1d7ec],
