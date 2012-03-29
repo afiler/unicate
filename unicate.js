@@ -9,12 +9,19 @@ formats = {
     [/[a-z]/g, 0x1d44e-0x61]
   ],
 
-  circle: [
+  circled: [
     [/[A-Z]/g, 0x24b6-0x41],
     [/[a-z]/g, 0x24d0-0x61],
     [/[1-9]/g, 0x2460-0x31],
     [/0/g, 0x24ea-0x30]
   ],
+
+  parenthesized: [
+    [/[A-Z]/g, 0x249c-0x41],
+    [/[a-z]/g, 0x249c-0x61],
+    [/[1-9]/g, 0x2474-0x31],
+  ],
+
 
   freeze_spaces: [
     [/\t/g, "    "],
@@ -30,11 +37,47 @@ formats = {
   sans_serif_bold_italic: [0x1d63c, 0x1d7ec],
   monospace: [0x1d670, 0x1d7f6],
   
-  script: 0x1d49c,
+  //script: 0x1d49c,
+  script: [
+    ['B', 0x212c],
+    ['E', 0x2130],
+    ['F', 0x2131],
+    ['H', 0x210b],
+    ['I', 0x2110],
+    ['L', 0x2112],
+    ['M', 0x2133],
+    ['R', 0x211b],
+    ['e', 0x212f],
+    ['g', 0x210a],
+    ['o', 0x2134],
+    [/[A-Z]/g, 0x1d49c-0x41],
+    [/[a-z]/g, 0x1d49c+26-0x61]
+  ],
   script_bold: 0x1d4d0,
-  fraktur: 0x1d504,
+  //fraktur: 0x1d504,
+  fraktur: [
+    ['C', 0x212d],
+    ['H', 0x210c],
+    ['I', 0x2111],
+    ['R', 0x211c],
+    ['Z', 0x2128],
+    [/[A-Z]/g, 0x1d504-0x41],
+    [/[a-z]/g, 0x1d504+26-0x61]
+  ],
   fraktur_bold: 0x1d56c,
-  double_struck: 0x1d538,
+  //double_struck: 0x1d538,
+  double_struck: [
+    ['C', 0x2102],
+    ['D', 0x2145],
+    ['H', 0x210D],
+    ['N', 0x2115],
+    ['P', 0x2119],
+    ['Q', 0x211A],
+    ['R', 0x211D],
+    ['Z', 0x2124],
+    [/[A-Z]/g, 0x1d538-0x41],
+    [/[a-z]/g, 0x1d538+26-0x61]
+  ]
 }
 
 function $(v) {
@@ -47,7 +90,7 @@ function go(ruleset_name) {
   if (typeof(ruleset) == 'function') {
     text = ruleset(text)
   } else if (typeof(ruleset) == 'number') {
-    text = mathFormat(ruleset, 0x30, text)
+    text = mathFormat(ruleset, 0x31, text) // 0x31 = '1'
   } else if (typeof(ruleset[0]) == 'number') {
     text = mathFormat(ruleset[0], ruleset[1], text)
   } else {
@@ -58,10 +101,12 @@ function go(ruleset_name) {
 
 function format(rules, text) {
   rules.forEach(function(x) {
+    if (typeof(x[0]) == 'string' && typeof(x[1]) == 'number')
+      text = text.replace(x[0], chr(x[1]), 'g')
     if (typeof(x[1]) == 'number')
-      text = text.replace(x[0], function(c) { return shiftchar(c, x[1]) })
+      text = text.replace(x[0], function(c) { return shiftchar(c, x[1]) }, 'g')
     else
-      text = text.replace(x[0], x[1])
+      text = text.replace(x[0], x[1], 'g')
   })
 
   return text
