@@ -82,7 +82,11 @@ formats = {
     ['Z', 0x2124],
     [/[A-Z]/g, 0x1d538-0x41],
     [/[a-z]/g, 0x1d538+26-0x61]
-  ]
+  ],
+  
+  ſubſtitute_ſes: function(text) {
+    return text.replace(/s(?=[a-z])/g, 'ſ');
+  },
 }
 
 function $(v) {
