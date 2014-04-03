@@ -143,9 +143,9 @@ formats = {
       ['back','\uD83D\uDD19'],  ['end','\uD83D\uDD1A'],  ['soon','\uD83D\uDD1C'],
       ['on','\uD83D\uDD1B'],  ['top','\uD83D\uDD1D'],
       //prevent flags, needs editing if they add more!
-      ['CN','C\u00ADN'],  ['DE','D\u00ADE'],  ['ES','E\u00ADS'],  ['FR','F\u00ADR'],
-      ['GB','G\u00ADB'],  ['IT','I\u00ADT'],  ['JP','J\u00ADP'],  ['KR','K\u00ADR'],
-      ['RU','R\u00ADU'],  ['US','U\u00ADS'],
+      ['CN','C\u200BN'],  ['DE','D\u200BE'],  ['ES','E\u200BS'],  ['FR','F\u200BR'],
+      ['GB','G\u200BB'],  ['IT','I\u200BT'],  ['JP','J\u200BP'],  ['KR','K\u200BR'],
+      ['RU','R\u200BU'],  ['US','U\u200BS'],
       //letters
       ['A','\uD83C\uDDE6'],  ['B','\uD83C\uDDE7'],  ['C','\uD83C\uDDE8'],  ['D','\uD83C\uDD94'],
       ['E','\uD83C\uDDEA'],  ['F','\uD83C\uDDEB'],  ['G','\uD83C\uDDEC'],  ['H','\uD83C\uDDED'],
