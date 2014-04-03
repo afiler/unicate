@@ -28,7 +28,7 @@ formats = {
     [/ /g, chr(0x3000)]
   ],
 
-  //bold: [0x1d400, 0x1d7ce],
+  // bold: [0x1d400, 0x1d7ce],
   bold: [
     [/[A-Z]/g, 0x1d400-0x41],
     [/[a-z]/g, 0x1d41a-0x61],
