@@ -8,7 +8,11 @@ formats = {
     [/[A-Z]/g, 0x1d434-0x41],
     [/[a-z]/g, 0x1d44e-0x61]
   ],
-
+  
+  strikethrough: function(text) {
+    return text.split('').map(function(c) { return c + '\u0336' }).join('');
+  },
+  
   circled: [
     [/[A-Z]/g, 0x24b6-0x41],
     [/[a-z]/g, 0x24d0-0x61],
@@ -167,7 +171,6 @@ formats = {
 
 function pick() {
   button = $(this)
-  console.log('pick', button,  button.data('ruleset-name'))
   window.ruleset_name = button.data('ruleset-name')
   $('div.box button').removeClass('selected')
   button.addClass('selected')
@@ -254,7 +257,6 @@ function fixedFromCharCode (codePt) {
 }
 
 $(document).ready(function() {
-  $('div.box button').on('click', function() { console.log($(this).data('ruleset-name'))})
   $('div.box button').on('click', pick)
   if (!window.ruleset_name) $($('div.box button')[0]).trigger('click')
 })
