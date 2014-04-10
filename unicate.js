@@ -17,6 +17,14 @@ formats = {
     return output.join('\n')
   },
   
+  dirt: function(text) {
+    return text.split('').map(function(c) { return c + random_dirt()}).join('');
+  },
+  
+  upside_down: function(text) {
+    return text.split('').map(function(c) { return upside_downs[c] || c }).reverse().join('');
+  },
+  
   fullwidth: [
     //[' ', chr(0x3000)],
     [/[^ ]/g, 0xff00-0x20]
@@ -183,6 +191,69 @@ formats = {
   }
 }
 
+// table from http://www.fileformat.info/convert/text/upside-down-map.htm
+var upside_downs = {
+  '3': "Ɛ",
+  '4': "ᔭ",
+  '6': "9",
+  '7': "Ɫ",
+  '!': "¡",
+  '"': "„",
+  '&': "⅋",
+  "'": ",",
+  '(': ")",
+  '.': "˙",
+  ';': "؛",
+  '<': ">",
+  '?': "¿",
+  'A': "∀",
+  'B': "𐐒",
+  'C': "Ↄ",
+  'D': "◖",
+  'E': "Ǝ",
+  'F': "Ⅎ",
+  'G': "⅁",
+  'J': "ſ",
+  'K': "⋊",
+  'L': "⅂",
+  'M': "W",
+  'N': "ᴎ",
+  'P': "Ԁ",
+  'Q': "Ό",
+  'R': "ᴚ",
+  'T': "⊥",
+  'U': "∩",
+  'V': "ᴧ",
+  'Y': "⅄",
+  '[': "]",
+  '_': "‾",
+  'a': "ɐ",
+  'b': "q",
+  'c': "ɔ",
+  'd': "p",
+  'e': "ǝ",
+  'f': "ɟ",
+  'g': "ƃ",
+  'h': "ɥ",
+  'i': "ı",
+  'j': "ɾ",
+  'k': "ʞ",
+  'l': "l",
+  'm': "ɯ",
+  'n': "u",
+  'p': "d",
+  'r': "ɹ",
+  't': "ʇ",
+  'u': "n",
+  'v': "ʌ",
+  'w': "ʍ",
+  'y': "ʎ",
+  '{': "}",
+  '‿': "⁀",
+  '⁅': "⁆",
+  '∴': "∵",
+}
+
 combining_aboves = {
   'a': '\u0363',
   'b': '\ua67a', // err
@@ -212,6 +283,9 @@ combining_aboves = {
   'z': '\u1de6',
 }
 
+combining_scratches = ['\u0338','\u20E5', '\u20eb', '\u0337']
+combining_everything = ['\u0300','\u0301','\u0302','\u0303','\u0304','\u0305','\u0306','\u0307','\u0308','\u0309','\u030A','\u030B','\u030C','\u030D','\u030E','\u030F','\u0310','\u0311','\u0312','\u0313','\u0314','\u0315','\u0316','\u0317','\u0318','\u0319','\u031A','\u031B','\u031C','\u031D','\u031E','\u031F','\u0320','\u0321','\u0322','\u0323','\u0324','\u0325','\u0326','\u0327','\u0328','\u0329','\u032A','\u032B','\u032C','\u032D','\u032E','\u032F','\u0330','\u0331','\u0332','\u0333','\u0334','\u0335','\u0336','\u0337','\u0338','\u0339','\u033A','\u033B','\u033C','\u033D','\u033E','\u033F','\u0340','\u0341','\u0342','\u0343','\u0344','\u0345','\u0346','\u0347','\u0348','\u0349','\u034A','\u034B','\u034C','\u034D','\u034E','\u034F','\u0350','\u0351','\u0352','\u0353','\u0354','\u0355','\u0356','\u0357','\u0358','\u0359','\u035A','\u035B','\u035C','\u035D','\u035E','\u035F','\u0360','\u0361','\u0362','\u0363','\u0364','\u0365','\u0366','\u0367','\u0368','\u0369','\u036A','\u036B','\u036C','\u036D','\u036E','\u036F','\u0483','\u0484','\u0485','\u0486','\u0487','\u0488','\u0489','\u0653','\u07EB','\u07EC','\u07ED','\u07EE','\u07EF','\u07F0','\u07F1','\u07F2','\u07F3'] //,'\u101FD','\u1100','\u135D','\u135E','\u135F','\u1A7F','\u1B6B','\u1B6C','\u1B6D','\u1B6E','\u1B6F','\u1B70','\u1B71','\u1B72','\u1B73','\u1D165','\u1D166','\u1D167','\u1D168','\u1D169','\u1D16D','\u1D16E','\u1D16F','\u1D170','\u1D171','\u1D172','\u1D17B','\u1D17C','\u1D17D','\u1D17E','\u1D17F','\u1D180','\u1D181','\u1D182','\u1D185','\u1D186','\u1D187','\u1D188','\u1D189','\u1D18A','\u1D18B','\u1D1AA','\u1D1AB','\u1D1AC','\u1D1AD','\u1D242','\u1D243','\u1D244','\u1DC0','\u1DC1','\u1DC2','\u1DC3','\u1DC4','\u1DC5','\u1DC6','\u1DC7','\u1DC8','\u1DC9','\u1DCA','\u1DCB','\u1DCC','\u1DCD','\u1DCE','\u1DCF','\u1DD0','\u1DD1','\u1DD2','\u1DD3','\u1DD4','\u1DD5','\u1DD6','\u1DD7','\u1DD8','\u1DD9','\u1DDA','\u1DDB','\u1DDC','\u1DDD','\u1DDE','\u1DDF','\u1DE0','\u1DE1','\u1DE2','\u1DE3','\u1DE4','\u1DE5','\u1DE6','\u1DFC','\u1DFD','\u1DFE','\u1DFF','\u20D0','\u20D1','\u20D2','\u20D3','\u20D4','\u20D5','\u20D6','\u20D7','\u20D8','\u20D9','\u20DA','\u20DB','\u20DC','\u20DD','\u20DE','\u20DF','\u20E0','\u20E1','\u20E2','\u20E3','\u20E4','\u20E5','\u20E6','\u20E7','\u20E8','\u20E9','\u20EA','\u20EB','\u20EC','\u20ED','\u20EE','\u20EF','\u20F0','\u2CEF','\u2CF0','\u2CF1','\u2DE0','\u2DE1','\u2DE2','\u2DE3','\u2DE4','\u2DE5','\u2DE6','\u2DE7','\u2DE8','\u2DE9','\u2DEA','\u2DEB','\u2DEC','\u2DED','\u2DEE','\u2DEF','\u2DF0','\u2DF1','\u2DF2','\u2DF3','\u2DF4','\u2DF5','\u2DF6','\u2DF7','\u2DF8','\u2DF9','\u2DFA','\u2DFB','\u2DFC','\u2DFD','\u2DFE','\u2DFF','\u3099','\u309A','\uA66F','\uA670','\uA671','\uA672','\uA674','\uA675','\uA676','\uA677','\uA678','\uA679','\uA67A','\uA67B','\uA67C','\uA67D','\uA69F','\uA6F0','\uA6F1','\uA8E0','\uA8E1','\uA8E2','\uA8E3','\uA8E4','\uA8E5','\uA8E6','\uA8E7','\uA8E8','\uA8E9','\uA8EA','\uA8EB','\uA8EC','\uA8ED','\uA8EE','\uA8EF','\uA8F0','\uA8F1','\uFE20','\uFE21','\uFE22','\uFE23','\uFE24','\uFE25','\uFE26']
+
 function blend(a, b) {
   var len = a.length > b.length ? a.length : b.length;
   
@@ -222,6 +296,19 @@ function blend(a, b) {
     out += lower + (combining_aboves[upper] || '');
   }
   return out;
+}
+
+function random_dirt() {
+  var count = 1; Math.random()*4+1;
+  var out = [];
+  for (var i=0; i < count; i++) {
+    out.push(rand_from(combining_everything));
+  }
+  return out.join('');
+}
+
+function rand_from(array) {
+  return array[Math.floor(Math.random()*array.length)];
 }
 
 function pick() {
