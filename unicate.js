@@ -1,4 +1,22 @@
 formats = {
+  strikethrough: combiner('\u0336'),
+  underline: combiner('\u035f'),
+  scratches: combiner('\u0337'),
+  heavy_metal: combiner('\u0308'),
+  dotted_line: combiner('\u0324'),
+  wibbles: combiner('\u0359'),
+
+  subliminal_messages: function(text) {
+    var lines = text.split("\n");
+    var output = [];
+    for (var i=0; i<Math.ceil(lines.length/2); i++) {
+      var a = lines[i*2];
+      var b = lines[i*2+1] || '';
+      output.push(blend(a, b));
+    }
+    return output.join('\n')
+  },
+  
   fullwidth: [
     //[' ', chr(0x3000)],
     [/[^ ]/g, 0xff00-0x20]
@@ -8,13 +26,6 @@ formats = {
     [/[A-Z]/g, 0x1d434-0x41],
     [/[a-z]/g, 0x1d44e-0x61]
   ],
-  
-  strikethrough: combiner('\u0336'),
-  underline: combiner('\u035f'),
-  scratches: combiner('\u0337'),
-  heavy_metal: combiner('\u0308'),
-  dotted_line: combiner('\u0324'),
-  wibbles: combiner('\u0359'),
   
   circled: [
     [/[A-Z]/g, 0x24b6-0x41],
@@ -170,6 +181,47 @@ formats = {
     }
     return text;
   }
+}
+
+combining_aboves = {
+  'a': '\u0363',
+  'b': '\ua67a', // err
+  'c': '\u0368',
+  'd': '\u0369',
+  'e': '\u0364',
+  'f': '\u1de5', // no...
+  'g': '\u1dda',
+  'h': '\u036a',
+  'i': '\u0365',
+  'j': '\u033e', // not even close
+  'k': '\u1ddc',
+  'l': '\u1ddd',
+  'm': '\u036b',
+  'n': '\u1de0',
+  'o': '\u0366',
+  'p': '\u1dec',
+  'q': '\u20da', // not really
+  'r': '\u036c',
+  's': '\u1de4',
+  't': '\u036d',
+  'u': '\u0367',
+  'v': '\u036e',
+  'w': '\u07ec', // no way
+  'x': '\u036f',
+  'y': '\u035b', // not even close
+  'z': '\u1de6',
+}
+
+function blend(a, b) {
+  var len = a.length > b.length ? a.length : b.length;
+  
+  out = '';
+  for (var i=0; i < len; i++) {
+    upper = a[i];
+    lower = b[i] || ' ';
+    out += lower + (combining_aboves[upper] || '');
+  }
+  return out;
 }
 
 function pick() {
