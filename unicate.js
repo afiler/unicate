@@ -299,7 +299,7 @@ function blend(a, b) {
 }
 
 function random_dirt() {
-  var count = 1; Math.random()*4+1;
+  var count = Math.random()*4+1;
   var out = [];
   for (var i=0; i < count; i++) {
     out.push(rand_from(combining_everything));
