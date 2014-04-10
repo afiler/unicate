@@ -9,9 +9,12 @@ formats = {
     [/[a-z]/g, 0x1d44e-0x61]
   ],
   
-  strikethrough: function(text) {
-    return text.split('').map(function(c) { return c + '\u0336' }).join('');
-  },
+  strikethrough: combiner('\u0336'),
+  underline: combiner('\u035f'),
+  scratches: combiner('\u0337'),
+  heavy_metal: combiner('\u0308'),
+  dotted_line: combiner('\u0324'),
+  wibbles: combiner('\u0359'),
   
   circled: [
     [/[A-Z]/g, 0x24b6-0x41],
@@ -217,6 +220,8 @@ function mathFormat(offset, digitOffset, text) {
     ], text)
 }
 
+function combiner(codepoint) { return function(text) { return combine(codepoint, text) } }
+function combine(codepoint, text) { return text.split('').map(function(c) { return c == ' ' ? c : c + codepoint }).join(''); }
 function shiftchar(c, i) { return chr(asc(c) + i) }
 function asc(str) { return fixedCharCodeAt(str, 0) }
 function chr(x) { return fixedFromCharCode(x) }
