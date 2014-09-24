@@ -157,6 +157,14 @@ formats = {
     return text.replace(/s(?=[a-z])/g, 'ſ');
   },
   
+  invisibly_different: [
+    ['.', 0x2024],
+    ['/', 0x2215],
+    ['#', 0x266F],
+    ['|', 0x00A6],
+    [':', 0xA789],
+  ],
+  
   region_tiles: function(text) {
     var sub = [
       //symbols
@@ -392,8 +400,7 @@ function fixedCharCodeAt (str, idx) {
 function fixedFromCharCode (codePt) {  
     if (codePt > 0xFFFF) {  
         codePt -= 0x10000;  
-        return String.fromCharCode(0xD800 + (codePt >> 10), 0xDC00 +  
-(codePt & 0x3FF));  
+        return String.fromCharCode(0xD800 + (codePt >> 10), 0xDC00 + (codePt & 0x3FF));  
     }  
     else {  
         return String.fromCharCode(codePt);  
