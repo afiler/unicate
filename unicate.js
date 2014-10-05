@@ -109,7 +109,7 @@ formats = {
     [/0/g, 0x1d7ed-0x31],
   ],
   
-  monospace: [0x1d670, 0x1d7f6],
+  monospace: [0x1d670, 0x1d7f7],
   
   //script: 0x1d49c,
   script: [
